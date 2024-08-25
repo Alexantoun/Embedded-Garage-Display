@@ -2,6 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 import datetime
 
 from src.month_scroll_bar import MonthScroll
+from src.calendar import CalendarWidget
 
 #Temp imports
 from kivy.uix.label import Label
@@ -16,4 +17,4 @@ class GarageAppMainWindow(BoxLayout):
         month = self.date_today.month
 
         self.add_widget(MonthScroll(month, size_hint=(1, .075)))
-        self.add_widget(Label(text='delete me'))
+        self.add_widget(CalendarWidget())

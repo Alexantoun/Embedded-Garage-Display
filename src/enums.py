@@ -1,6 +1,5 @@
 import enum
 
-
 class CarServiceType(enum):
     OIL_CHANGE = 0
     REPAIR = 1

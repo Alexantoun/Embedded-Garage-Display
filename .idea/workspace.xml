@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f84e83c-d552-444d-a68e-fccf9e9336d4" name="Changes" comment="intial commit; project start, created premature scroll buttons">
+      <change afterPath="$PROJECT_DIR$/src/calendar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/colored_label.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/colors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/garage_app_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/garage_app_main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/month_scroll_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/month_scroll_bar.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,22 +21,23 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Alexantoun"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Alexantoun&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alexantoun/Embedded-Garage-Display.git",
-    "accountId": "7f10de44-0424-469b-b17f-ab41b3ba9d15"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alexantoun/Embedded-Garage-Display.git&quot;,
+    &quot;accountId&quot;: &quot;7f10de44-0424-469b-b17f-ab41b3ba9d15&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2l8Hg42EZnF8yaWfMtUtfWZ847m" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -42,9 +50,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "/home/austin/Workspace/KivyTutorial",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/lib" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Embedded Garage App" />
@@ -101,10 +114,38 @@
       <option name="project" value="LOCAL" />
       <updated>1724564465501</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="intial commit; project start, created premature scroll buttons">
+      <option name="closed" value="true" />
+      <created>1724565301117</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724565301117</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="intial commit; project start, created premature scroll buttons" />
     <option name="LAST_COMMIT_MESSAGE" value="intial commit; project start, created premature scroll buttons" />
   </component>
