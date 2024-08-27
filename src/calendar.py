@@ -1,9 +1,12 @@
+import datetime
+import src.enums as enums
 
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.boxlayout import BoxLayout
-from src.lib.colored_label import ColoredLabel
+from src.lib.colored_label_widget import ColoredLabel
 import src.colors as colors
+from src.calendar_day_widget import CalendarDay
 
+from datetime import time
 DAYS_IN_WEEK = 7
 DAY_TO_STRING = [
     'Monday',
@@ -24,19 +27,9 @@ class CalendarWidget(GridLayout):
         for day in DAY_TO_STRING:
             coloredLabel = ColoredLabel(bg_color=colors.DAY_LABEL_BG_COLOR, text=day)
             self.add_widget(coloredLabel)
-            coloredLabel.size_hint = (1, 0.1)
+            coloredLabel.size_hint = (1, 0.25)
 
-
-        self.add_widget(ColoredLabel(bg_color=colors.SCROLL_BUTTON_BG_COLOR, text='nil'))
-
-
-
-class CalendarDayTitleWidget(BoxLayout):
-    def __init__(self, **kwargs):
-        super(CalendarDayTitleWidget, self).__init__(**kwargs)
-        self.orientation = 'horizontal'
-
-        for day in DAY_TO_STRING:
-            self.add_widget(ColoredLabel(bg_color=colors.DAY_LABEL_BG_COLOR, text=day))
-
-
+        color_index = 0
+        for i in range(1, 32):
+            self.add_widget(CalendarDay(day_number=i))
+            color_index = (color_index + 1) % 2

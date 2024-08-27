@@ -1,13 +1,14 @@
-import enum
+from enum import Enum
 
-class CarServiceType(enum):
+
+class CarServiceType(Enum):
     OIL_CHANGE = 0
     REPAIR = 1
     REGISTRATION = 2
     INSURANCE = 3
 
 
-class DayOfWeek(enum):
+class DayOfWeek(Enum):
     MONDAY = 0
     TUESDAY = 1
     WEDNESDAY = 2

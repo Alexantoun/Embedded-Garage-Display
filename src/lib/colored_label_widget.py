@@ -11,7 +11,6 @@ class ColoredLabel(Label):
             Color(*bg_color)
             self.rect = Rectangle(pos=self.pos, size=self.size)
         self.bind(size=self._update_rect, pos=self._update_rect)
-        print(bg_color)
 
     def _update_rect(self, *args):
         self.rect.size = self.size

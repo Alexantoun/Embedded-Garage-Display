@@ -16,5 +16,5 @@ class GarageAppMainWindow(BoxLayout):
         print(self.date_today)
         month = self.date_today.month
 
-        self.add_widget(MonthScroll(month, size_hint=(1, .075)))
+        self.add_widget(MonthScroll(month, size_hint=(1, .085)))
         self.add_widget(CalendarWidget())

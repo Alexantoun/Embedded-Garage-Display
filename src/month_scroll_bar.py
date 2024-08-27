@@ -3,7 +3,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 
 import src.colors as colors
-from src.lib.colored_label import ColoredLabel
+from src.lib.colored_label_widget import ColoredLabel
 
 MONTH_IN_YEAR = 12
 MONTH_TO_STRING = [
