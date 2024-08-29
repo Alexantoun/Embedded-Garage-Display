@@ -36,23 +36,26 @@ class GarageAppMainWindow(FloatLayout):
         self.touch_start_x = touch.x
         if self.sidebar_active:
             self.sidebar_layout.on_touch_down(touch)
-            return True
-        return super(GarageAppMainWindow, self).on_touch_down(touch)
+            return True  # Returning true means that the touch event has been completely handled by this widget
+            # Returning false would mean that the touch event wasnt completely handled, and allows propagation of the event to child widgets
+        return super(GarageAppMainWindow, self).on_touch_down(touch)  # This means to let the base class handle what to do with event
 
     def on_touch_move(self, touch):
         delta_x = touch.x - self.touch_start_x
         new_x_position = self.sidebar_layout.x + delta_x
         self.sidebar_layout.x = min(new_x_position, SIDEBAR_ACTIVE_POSITION_x)
-        self.moving_bar = abs(delta_x) > 10
+        self.moving_bar = abs(delta_x) > 1
         return True
 
     def on_touch_up(self, touch):
         if self.moving_bar:
-            if self.sidebar_layout.x < -25: #if side bar not exposed enough, hide it again
+            if self.sidebar_layout.x < -25:  # if sidebar not exposed enough, hide it again
                 self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
+                print('re-hiding side bar due to not being pulled enough')
             else:
                 self.sidebar_layout.x = SIDEBAR_ACTIVE_POSITION_x
                 self.sidebar_active = True
+                print('fully exposing side bar due to being pulled enough')
 
             self.moving_bar = False
             return True

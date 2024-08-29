@@ -1,6 +1,5 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.uix.label import Label
 
 import src.colors as colors
 from src.lib.colored_label_widget import ColoredLabel
