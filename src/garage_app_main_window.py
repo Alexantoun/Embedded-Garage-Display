@@ -1,58 +1,76 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.animation import Animation
 
 import datetime
 
 from src.month_scroll_bar import MonthScroll
-from src.calendar_widget import CalendarWidget
+from src.lib.calendar_widget import CalendarWidget
 from src.side_bar import SideBar
 
-#Temp imports
-from kivy.uix.label import Label
 
 SIDEBAR_INITIAL_POSITION_x = -100
 SIDEBAR_ACTIVE_POSITION_x = -1
-# class GarageAppMainWindow(BoxLayout):
-#     def __init__(self, **kwargs):
-#         super(GarageAppMainWindow, self).__init__(**kwargs)
-#         self.orientation = 'vertical'
-#         self.date_today = datetime.date.today()
-#         print(self.date_today)
-#         month = self.date_today.month
-#
-#         self.add_widget(MonthScroll(month, size_hint=(1, .085)))
-#         self.add_widget(CalendarWidget())
 
 class GarageAppMainWindow(FloatLayout):
     def __init__(self, **kwargs):
         super(GarageAppMainWindow, self).__init__(**kwargs)
         calendar_layout = BoxLayout(orientation='vertical', size_hint=(1, 1))
-        self.sidebar_layout = BoxLayout()
+        self.sidebar_layout = SideBar()
+        self.sidebar_active: bool
         self.setup_sidebar()
 
         self.add_widget(calendar_layout)
         self.add_widget(self.sidebar_layout)
-        # calendar_layout.size = self.size
 
-        # self.orientation = 'vertical'
         self.date_today = datetime.date.today()
         print(self.date_today)
         month = self.date_today.month
-
         calendar_layout.add_widget(MonthScroll(month, size_hint=(1, .085)))
         calendar_layout.add_widget(CalendarWidget())
 
-        self.bind(on_touch_down=self.on_clicked)
+        self.touch_start_x = None
+        self.moving_bar = False
 
-    def on_clicked(self, unused, alsoUnused):
-        if self.sidebar_layout.x == SIDEBAR_INITIAL_POSITION_x:
-            self.sidebar_layout.x = SIDEBAR_ACTIVE_POSITION_x
-        elif self.sidebar_layout.x == SIDEBAR_ACTIVE_POSITION_x:
-            self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
+    def on_touch_down(self, touch):
+        self.touch_start_x = touch.x
+        if self.sidebar_active:
+            self.sidebar_layout.on_touch_down(touch)
+            return True
+        return super(GarageAppMainWindow, self).on_touch_down(touch)
 
-        print('clicked')
+    def on_touch_move(self, touch):
+        delta_x = touch.x - self.touch_start_x
+        new_x_position = self.sidebar_layout.x + delta_x
+        self.sidebar_layout.x = min(new_x_position, SIDEBAR_ACTIVE_POSITION_x)
+        self.moving_bar = abs(delta_x) > 10
+        return True
+
+    def on_touch_up(self, touch):
+        if self.moving_bar:
+            if self.sidebar_layout.x < -25: #if side bar not exposed enough, hide it again
+                self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
+            else:
+                self.sidebar_layout.x = SIDEBAR_ACTIVE_POSITION_x
+                self.sidebar_active = True
+
+            self.moving_bar = False
+            return True
+
+        elif self.sidebar_active and not self.sidebar_layout.collide_point(*touch.pos):
+            self.sidebar_active = False
+            # Have the sidebar 'slide' back to its hidden position
+            animation = Animation(x=SIDEBAR_INITIAL_POSITION_x, duration=0.15)
+            animation.bind()
+            animation.start(self.sidebar_layout)
+
+            return True
+
+        elif not self.sidebar_active:
+            return super(GarageAppMainWindow, self).on_touch_up(touch)
+
     def setup_sidebar(self):
         self.sidebar_layout = SideBar(size_hint=(0.125, 1))
         self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
         self.sidebar_layout.y = -1
-        self.sidebar_layout.active = False
+        self.sidebar_active = False

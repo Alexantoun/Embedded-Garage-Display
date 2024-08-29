@@ -1,12 +1,8 @@
-import datetime
-import src.enums as enums
-
 from kivy.uix.gridlayout import GridLayout
 from src.lib.colored_label_widget import ColoredLabel
 import src.colors as colors
-from src.calendar_day_widget import CalendarDay
+from src.lib.calendar_day_widget import CalendarDay
 
-from datetime import time
 DAYS_IN_WEEK = 7
 DAY_TO_STRING = [
     'Monday',
@@ -18,6 +14,15 @@ DAY_TO_STRING = [
     'Sunday'
 ]
 
+# To get the number of days in a month and the day of the week that the first of the month starts on, you can use the calendar and datetime modules in Python.
+# Here's how you can do it:
+# Get the Number of Days in a Month:
+#     Use calendar.monthrange(year, month) to get a tuple where the first element
+#     is the weekday of the first day of the month (0 = Monday, 6 = Sunday),
+#     and the second element is the number of days in the month.
+# Get the Day of the Week for the First of the Month:
+#     The first element of the tuple returned by calendar.monthrange(year, month)
+#     gives you the day of the week for the first of the month.
 
 class CalendarWidget(GridLayout):
     def __init__(self, **kwargs):

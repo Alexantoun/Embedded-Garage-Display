@@ -6,10 +6,8 @@ import src.enums as enums
 import src.colors as colors
 
 COLOR_SELECTION = [
-    # colors.LIGHTER_DAY_WIDGET_COLOR,
-    # colors.DARKER_DAY_WIDGET_COLOR
-    (.4, .3, .3),
-    (.7, .4, .5)
+    colors.LIGHTER_DAY_WIDGET_COLOR,
+    colors.DARKER_DAY_WIDGET_COLOR
 ]
 
 class BlankCalendarDay(BoxLayout):
@@ -32,6 +30,7 @@ class CalendarDay(BoxLayout):
         self.bind(size=self._update_rect, pos=self._update_rect)
 
         self.day_index_label = Label(text=str(day_number))
+        self.day_index_label.color = (0, 0, 0)
         self.day_index_label.valign = 'top'
         self.day_index_label.size_hint = (.25, .5)
         self.add_widget(self.day_index_label)
@@ -39,12 +38,9 @@ class CalendarDay(BoxLayout):
         self.event_text = Label()
         self.add_widget(self.event_text)
 
-    def on_touch_down(self, touch):  # Overrides Widget.on_touch_down
+    def on_touch_up(self, touch):  # Overrides Widget.on_touch_down
         if self.collide_point(*touch.pos):
-            print(f'{self.day_index_label.text} clicked')
-
-    def on_touch_move(self, touch):
-        pass
+            print(f'day {self.day_index_label.text} clicked')
 
     def update_event_list(self, events: [(time, enums.CarServiceType, str)]):
         #use icons

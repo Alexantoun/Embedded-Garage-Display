@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f84e83c-d552-444d-a68e-fccf9e9336d4" name="Changes" comment="Side bar - Add touch event controller">
-      <change afterPath="$PROJECT_DIR$/src/side_bar.py" afterDir="false" />
+    <list default="true" id="57ab6730-27b6-4930-8cc8-7d8ca5dd9798" name="Changes" comment="Initial work on widgets for individual days">
       <change beforePath="$PROJECT_DIR$/.idea/Embedded Garage App.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Embedded Garage App.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calendar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/calendar_widget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calendar_day_widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/calendar_day_widget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/calendar_day_widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/calendar_day_widget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/calendar_widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/calendar_widget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/colors.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/colors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/garage_app_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/garage_app_main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/side_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/side_bar.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,24 +21,23 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Alexantoun&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Alexantoun"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Alexantoun/Embedded-Garage-Display.git&quot;,
-    &quot;accountId&quot;: &quot;7f10de44-0424-469b-b17f-ab41b3ba9d15&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Alexantoun/Embedded-Garage-Display.git",
+    "accountId": "7f10de44-0424-469b-b17f-ab41b3ba9d15"
   }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2l8Hg42EZnF8yaWfMtUtfWZ847m" />
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2lJNYTzdsoV2cf6uvw25YRkUwZJ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -46,21 +45,19 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.garage_app_main_window.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/alex/Workspace/Embedded-Garage-Display",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "git-widget-placeholder": "main"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/lib" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Embedded Garage App" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -69,7 +66,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -82,6 +79,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -93,71 +95,25 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9f84e83c-d552-444d-a68e-fccf9e9336d4" name="Changes" comment="" />
-      <created>1724554890541</created>
+      <changelist id="57ab6730-27b6-4930-8cc8-7d8ca5dd9798" name="Changes" comment="Initial work on widgets for individual days" />
+      <created>1724894267776</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1724554890541</updated>
+      <updated>1724894267776</updated>
     </task>
-    <task id="LOCAL-00001" summary="intial commit; project start, created premature scroll buttons">
+    <task id="LOCAL-00001" summary="Initial work on widgets for individual days">
       <option name="closed" value="true" />
-      <created>1724564154940</created>
+      <created>1724945887760</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1724564154940</updated>
+      <updated>1724945887760</updated>
     </task>
-    <task id="LOCAL-00002" summary="intial commit; project start, created premature scroll buttons">
-      <option name="closed" value="true" />
-      <created>1724564465500</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1724564465501</updated>
-    </task>
-    <task id="LOCAL-00003" summary="intial commit; project start, created premature scroll buttons">
-      <option name="closed" value="true" />
-      <created>1724565301117</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1724565301117</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added ColorLabel and begun work on calendar widget">
-      <option name="closed" value="true" />
-      <created>1724624108264</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1724624108264</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="true" />
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$" />
-    </ignored-roots>
-    <MESSAGE value="intial commit; project start, created premature scroll buttons" />
-    <MESSAGE value="Added ColorLabel and begun work on calendar widget" />
-    <MESSAGE value="Side bar - Add touch event controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Side bar - Add touch event controller" />
+    <MESSAGE value="Initial work on widgets for individual days" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial work on widgets for individual days" />
   </component>
 </project>
