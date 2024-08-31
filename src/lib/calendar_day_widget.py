@@ -28,10 +28,7 @@ class CalendarDay(BoxLayout):
 
         self.bind(size=self._update_rect, pos=self._update_rect)
 
-        self.day_index_label = Label(text=str(day_number))
-        self.day_index_label.color = (0, 0, 0)
-        self.day_index_label.valign = 'top'
-        self.day_index_label.size_hint = (.25, .5)
+        self.day_index_label = Label(text=str(day_number), color=(0.1, 0, 0.05), valign='top', size_hint=(0.25, .5))
         self.add_widget(self.day_index_label)
 
         self.event_text = Label()
