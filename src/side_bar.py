@@ -1,11 +1,13 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 import src.colors as colors
+from src.debug_logger import DebugLogger as log
 
-
+DEBUG_CALLING_CLASS = 'side_bar'
 class SideBar(BoxLayout):
     def __init__(self, **kwargs):
         print('Set background color such that user cannot see inbetween the buttons on the side bar')
+        log.write_debug(DEBUG_CALLING_CLASS, 'initializing sidebar')
         super(SideBar, self).__init__(**kwargs)
         self.orientation = 'vertical'
 
@@ -57,15 +59,19 @@ class SideBar(BoxLayout):
 
     @staticmethod
     def settings_button_clicked(unused):
+        log.write_debug(DEBUG_CALLING_CLASS, 'Settings clicked')
         print('settings clicked')
 
     @staticmethod
     def delete_car_button_clicked(unused):
+        log.write_debug(DEBUG_CALLING_CLASS, 'Delete clicked')
         print('delete car clicked')
 
     @staticmethod
     def car_details_button_clicked(unused):
+        log.write_debug(DEBUG_CALLING_CLASS, 'Details clicked')
         print('car details clicked')
     @staticmethod
     def add_car_button_clicked(unused):
+        log.write_debug(DEBUG_CALLING_CLASS, 'Add clicked')
         print('add car clicked')

@@ -3,7 +3,9 @@ from kivy.uix.button import Button
 
 import src.colors as colors
 from src.lib.colored_label_widget import ColoredLabel
+from src.debug_logger import DebugLogger as Log
 
+DEBUG_CALLING_CLASS = 'month_scroll_bar'
 MONTH_IN_YEAR = 12
 
 MONTH_TO_STRING = [
@@ -26,6 +28,8 @@ class MonthScroll(BoxLayout):
         super(MonthScroll, self).__init__(**kwargs)
         self.current_month = current_month - 1
         print(f'\treceived month: {MONTH_TO_STRING[self.current_month]}')
+        Log.write_debug(DEBUG_CALLING_CLASS, f'Creating month scroll bar starting at '
+                                             f'month:{MONTH_TO_STRING[self.current_month]}')
 
         self.orientation = 'horizontal'
         self.back_button, self.current_label, self.next_button = self.make_widgets()
@@ -50,12 +54,14 @@ class MonthScroll(BoxLayout):
     def go_to_previous_month(self, unused):
         print('\tGoing back a month')
         self.current_month = (self.current_month - 1) % MONTH_IN_YEAR
+        Log.write_debug(DEBUG_CALLING_CLASS, f'Going back to month{MONTH_TO_STRING[self.current_month]}')
         self.dispatch('on_selected_month_back')
         self.update_text()
 
     def go_to_next_month(self, unused):
         print('\tGoing forward a month')
         self.current_month = (self.current_month + 1) % MONTH_IN_YEAR
+        Log.write_debug(DEBUG_CALLING_CLASS, f'Going forward to month{MONTH_TO_STRING[self.current_month]}')
         self.dispatch('on_selected_month_fore')
         self.update_text()
 
