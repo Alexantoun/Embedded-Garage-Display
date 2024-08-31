@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 
 from kivy.config import Config
+from kivy.core.text import LabelBase
 from kivy.app import App
 from src.garage_app_main_window import GarageAppMainWindow
 
@@ -16,6 +17,8 @@ class GarageAppEntryPoint(App):
         Config.set('graphics', 'height', RBPi_SCREEN_HEIGHT_px)
         Config.set('graphics', 'fullscreen', '0')
         Config.set('graphics', 'borderless', '0')
+
+        LabelBase.register(name='freedom_font', fn_regular='assets/font/Freedom-10eM.ttf')
 
         Config.write()
         return GarageAppMainWindow()

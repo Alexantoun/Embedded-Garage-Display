@@ -12,22 +12,44 @@ from src.side_bar import SideBar
 SIDEBAR_INITIAL_POSITION_x = -100
 SIDEBAR_ACTIVE_POSITION_x = -1
 
+MONTH_TO_STRING = [  # for debugging
+    'JANUARY',
+    'FEBRUARY',
+    'MARCH',
+    'APRIL',
+    'MAY',
+    'JUNE',
+    'JULY',
+    'AUGUST',
+    'SEPTEMBER',
+    'OCTOBER',
+    'NOVEMBER',
+    'DECEMBER'
+]
+
 class GarageAppMainWindow(FloatLayout):
     def __init__(self, **kwargs):
         super(GarageAppMainWindow, self).__init__(**kwargs)
-        calendar_layout = BoxLayout(orientation='vertical', size_hint=(1, 1))
+        self.calendar_layout = BoxLayout(orientation='vertical', size_hint=(1, 1))
         self.sidebar_layout = SideBar()
         self.sidebar_active: bool
         self.setup_sidebar()
 
-        self.add_widget(calendar_layout)
+        self.add_widget(self.calendar_layout)
         self.add_widget(self.sidebar_layout)
 
-        self.date_today = datetime.date.today()
-        print(self.date_today)
-        month = self.date_today.month
-        calendar_layout.add_widget(MonthScroll(month, size_hint=(1, .085)))
-        calendar_layout.add_widget(CalendarWidget())
+        self.selected_date = datetime.date.today()
+        print(self.selected_date)
+        month = self.selected_date.month
+        year = self.selected_date.year
+
+        month_scroll_bar = MonthScroll(month, size_hint=(1, .085))
+        month_scroll_bar.bind(on_selected_month_fore=self.handle_forward_scroll)
+        month_scroll_bar.bind(on_selected_month_back=self.handle_backward_scroll)
+
+        self.calendar_layout.add_widget(month_scroll_bar)
+        self.calendar_widget = CalendarWidget(month=month, year=year)
+        self.calendar_layout.add_widget(self.calendar_widget)
 
         self.touch_start_x = None
         self.moving_bar = False
@@ -71,6 +93,28 @@ class GarageAppMainWindow(FloatLayout):
 
         elif not self.sidebar_active:
             return super(GarageAppMainWindow, self).on_touch_up(touch)
+
+    def handle_forward_scroll(self, unused):
+        if self.selected_date.month == 12:
+            self.selected_date = datetime.datetime(year=self.selected_date.year + 1, month=1, day=1)
+        else:
+            self.selected_date = datetime.datetime(year=self.selected_date.year, month=self.selected_date.month + 1, day=1)
+
+        self.calendar_layout.remove_widget(self.calendar_widget)
+        self.calendar_widget = CalendarWidget(self.selected_date.month, self.selected_date.year)
+        self.calendar_layout.add_widget(self.calendar_widget)
+        print(f'Date goes on to: {MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
+
+    def handle_backward_scroll(self, unused):
+        if self.selected_date.month == 1:
+            self.selected_date = datetime.datetime(year=self.selected_date.year - 1, month=12, day=1)
+        else:
+            self.selected_date = datetime.datetime(year=self.selected_date.year, month=self.selected_date.month - 1, day=1)
+
+        self.calendar_layout.remove_widget(self.calendar_widget)
+        self.calendar_widget = CalendarWidget(self.selected_date.month, self.selected_date.year)
+        self.calendar_layout.add_widget(self.calendar_widget)
+        print(f'Date goes back to: {MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 
     def setup_sidebar(self):
         self.sidebar_layout = SideBar(size_hint=(0.125, 1))
