@@ -1,18 +1,20 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle, Line
+from kivy.uix.label import Label
 
 from datetime import time
-import src.enums as enums
-import src.colors as colors
+
+import src.constants as const
 from src.debug_logger import DebugLogger as Log
+import src.enums as enums
 
 DEBUG_CALLING_CLASS = 'day_widget'
 
 COLOR_SELECTION = [
-    colors.LIGHTER_DAY_WIDGET_COLOR,
-    colors.DARKER_DAY_WIDGET_COLOR
+    const.LIGHTER_DAY_WIDGET_COLOR,
+    const.DARKER_DAY_WIDGET_COLOR
 ]
+
 
 class CalendarDay(BoxLayout):
     def __init__(self, day_number: int, **kwargs):
@@ -36,7 +38,6 @@ class CalendarDay(BoxLayout):
 
     def on_touch_up(self, touch):  # Overrides Widget.on_touch_down
         if self.collide_point(*touch.pos):
-            print(f'day {self.day_index_label.text} clicked')
             if not self.selected:
                 self.draw_highlight_square()
                 self.selected = True
@@ -52,8 +53,8 @@ class CalendarDay(BoxLayout):
 
     def draw_highlight_square(self):
         with self.canvas.after:
-            Color(*colors.SIDEBAR_BUTTON_COLOR)
-            self.border = Line(rectangle=(self.x, self.y+1, self.width-2, self.height-2), width=2)
+            Color(*const.SIDEBAR_BUTTON_COLOR)
+            self.border = Line(rectangle=(self.x, self.y + 1, self.width - 2, self.height - 2), width=2)
 
     def update_event_list(self, events: [(time, enums.CarServiceType, str)]):
         #use icons

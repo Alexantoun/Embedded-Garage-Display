@@ -1,33 +1,19 @@
+from kivy.animation import Animation
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
-from kivy.animation import Animation
 
 import datetime
 
-from src.month_scroll_bar import MonthScroll
-from src.lib.calendar_widget import CalendarWidget
-from src.side_bar import SideBar
+import src.constants as const
 from src.debug_logger import DebugLogger as log
+from src.lib.calendar_widget import CalendarWidget
+from src.month_scroll_bar import MonthScroll
+from src.side_bar import SideBar
 
 SIDEBAR_INITIAL_POSITION_x = -100
 SIDEBAR_ACTIVE_POSITION_x = 0
 
 DEBUG_CALLING_CLASS = 'garage_app_main_window'
-
-MONTH_TO_STRING = [  # for debugging
-    'JANUARY',
-    'FEBRUARY',
-    'MARCH',
-    'APRIL',
-    'MAY',
-    'JUNE',
-    'JULY',
-    'AUGUST',
-    'SEPTEMBER',
-    'OCTOBER',
-    'NOVEMBER',
-    'DECEMBER'
-]
 
 
 class GarageAppMainWindow(FloatLayout):
@@ -113,7 +99,7 @@ class GarageAppMainWindow(FloatLayout):
         self.calendar_widget = CalendarWidget(self.selected_date.month, self.selected_date.year)
         self.calendar_layout.add_widget(self.calendar_widget)
         log.write_debug(DEBUG_CALLING_CLASS,
-                        message=f'change month to: {MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
+                        message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 
     def handle_backward_scroll(self, unused):
         if self.selected_date.month == 1:
@@ -126,4 +112,4 @@ class GarageAppMainWindow(FloatLayout):
         self.calendar_widget = CalendarWidget(self.selected_date.month, self.selected_date.year)
         self.calendar_layout.add_widget(self.calendar_widget)
         log.write_debug(DEBUG_CALLING_CLASS,
-                        message=f'change month to: {MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
+                        message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')

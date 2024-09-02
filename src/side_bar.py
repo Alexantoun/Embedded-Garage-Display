@@ -2,7 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.graphics import Color, Rectangle
 
-import src.colors as colors
+import src.constants as const
 from src.debug_logger import DebugLogger as log
 
 DEBUG_CALLING_CLASS = 'side_bar'
@@ -10,13 +10,12 @@ DEBUG_CALLING_CLASS = 'side_bar'
 
 class SideBar(BoxLayout):
     def __init__(self, **kwargs):
-        print('Set background color such that user cannot see inbetween the buttons on the side bar')
         log.write_debug(DEBUG_CALLING_CLASS, 'initializing sidebar')
         super(SideBar, self).__init__(**kwargs)
         self.orientation = 'vertical'
 
         with self.canvas.before:
-            Color(*colors.SIDEBAR_BUTTON_COLOR)
+            Color(*const.SIDEBAR_BUTTON_COLOR)
             self.rect = Rectangle(pos=self.pos, size=self.size)
         self.bind(size=self._update_rect, pos=self._update_rect)
 
@@ -47,7 +46,7 @@ class SideBar(BoxLayout):
                         size_hint=(1, 1),
                         halign='center',
                         valign='middle',
-                        background_color=colors.SIDEBAR_BUTTON_COLOR,
+                        background_color=const.SIDEBAR_BUTTON_COLOR,
                         font_name='freedom_font')
         button.font_size = 18
         return button

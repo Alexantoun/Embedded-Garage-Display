@@ -28,13 +28,16 @@ class GarageAppEntryPoint(App):
 
 
 if __name__ == '__main__':
-    GarageAppEntryPoint().run()
-    DebugLogger.write_debug('garage_app_entry_point', 'Program closed')
-    print('TODO:\n\tDay_widget should contain its own day to search for the data table\n\t'
-          'The font sucks on a small screen\n\t'
-          'Sidebar widgets can start being made\n\t'
-          'Design + implement database for events\n\t'
-          'day_widgets should show any events on that day\n\t'
-          'day_widgets on click should show the events details for that day')
-    DebugLogger.close()
-
+    try:
+        GarageAppEntryPoint().run()
+        print('TODO:\n\tDay_widget should contain its own day to search for the data table\n\t'
+              'The font sucks on a small screen\n\t'
+              'Sidebar widgets can start being made\n\t'
+              'Design + implement database for events\n\t'
+              'day_widgets should show any events on that day\n\t'
+              'day_widgets on click should show the events details for that day')
+    except Exception as exception:
+        DebugLogger.write_debug('garage_app_entry_point', f'Fatal error encountered:\n\t{exception}')
+    finally:
+        DebugLogger.write_debug('garage_app_entry_point', 'Program closed')
+        DebugLogger.close()

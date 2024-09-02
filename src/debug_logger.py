@@ -1,5 +1,5 @@
 class DebugLogger:
-    output_file = open('debug_output', 'w')
+    output_file = open('../debug_output', 'w')
 
     @staticmethod
     def write_debug(debug_calling_class:str, message: str):
