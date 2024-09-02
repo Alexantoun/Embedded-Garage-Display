@@ -3,7 +3,7 @@ from kivy.uix.gridlayout import GridLayout
 
 from src.lib.colored_label_widget import ColoredLabel
 import src.colors as colors
-from src.lib.calendar_day_widget import CalendarDay
+from src.lib.day_widget import CalendarDay
 from src.debug_logger import DebugLogger as Log
 
 DEBUG_CALLING_CLASS = 'calendar_widget'

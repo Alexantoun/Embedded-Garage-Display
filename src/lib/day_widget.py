@@ -7,7 +7,7 @@ import src.enums as enums
 import src.colors as colors
 from src.debug_logger import DebugLogger as Log
 
-DEBUG_CALLING_CLASS = 'calendar_day_widget'
+DEBUG_CALLING_CLASS = 'day_widget'
 
 COLOR_SELECTION = [
     colors.LIGHTER_DAY_WIDGET_COLOR,
@@ -40,12 +40,11 @@ class CalendarDay(BoxLayout):
             if not self.selected:
                 self.draw_highlight_square()
                 self.selected = True
-                Log.write_debug(DEBUG_CALLING_CLASS, f'Day {self.day_index_label.text} clicked and highlighted')
+                Log.write_debug(DEBUG_CALLING_CLASS, f'Day {self.day_index_label.text} checked')
 
         elif self.selected:
             self.remove_highlight_square()
             self.selected = False
-            Log.write_debug(DEBUG_CALLING_CLASS, f'Day {self.day_index_label.text} un-checked')
 
     def remove_highlight_square(self):
         self.canvas.after.remove(self.border)
@@ -54,7 +53,7 @@ class CalendarDay(BoxLayout):
     def draw_highlight_square(self):
         with self.canvas.after:
             Color(*colors.SIDEBAR_BUTTON_COLOR)
-            self.border = Line(rectangle=(self.x, self.y, self.width-2, self.height+1), width=2)
+            self.border = Line(rectangle=(self.x, self.y+1, self.width-2, self.height-2), width=2)
 
     def update_event_list(self, events: [(time, enums.CarServiceType, str)]):
         #use icons

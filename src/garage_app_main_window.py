@@ -10,7 +10,7 @@ from src.side_bar import SideBar
 from src.debug_logger import DebugLogger as log
 
 SIDEBAR_INITIAL_POSITION_x = -100
-SIDEBAR_ACTIVE_POSITION_x = -1
+SIDEBAR_ACTIVE_POSITION_x = 0
 
 DEBUG_CALLING_CLASS = 'garage_app_main_window'
 
@@ -42,7 +42,6 @@ class GarageAppMainWindow(FloatLayout):
         self.calendar_layout = BoxLayout(orientation='vertical', size_hint=(1, 1))
         self.sidebar_layout = SideBar(size_hint=(0.125, 1))
         self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
-        self.sidebar_layout.y = -1
         self.sidebar_active = False
 
         self.add_widget(self.calendar_layout)

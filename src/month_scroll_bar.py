@@ -23,6 +23,7 @@ MONTH_TO_STRING = [
     'DECEMBER'
 ]
 
+
 class MonthScroll(BoxLayout):
     def __init__(self, current_month: int, **kwargs):
         super(MonthScroll, self).__init__(**kwargs)
@@ -41,10 +42,13 @@ class MonthScroll(BoxLayout):
         self.register_event_type('on_selected_month_fore')
 
     def make_widgets(self):
-        back = Button(text=MONTH_TO_STRING[self.current_month - 1], background_color=colors.SCROLL_BUTTON_BG_COLOR, font_name='freedom_font')
+        back = Button(text=MONTH_TO_STRING[self.current_month - 1], background_color=colors.SCROLL_BUTTON_BG_COLOR,
+                      font_name='freedom_font')
         back.font_size = 18
-        forward = Button(text=MONTH_TO_STRING[self.current_month + 1], background_color=colors.SCROLL_BUTTON_BG_COLOR, font_name='freedom_font')
-        current = ColoredLabel(text=MONTH_TO_STRING[self.current_month], bg_color=colors.CURRENT_MONTH_BG_COLOR, font_name='freedom_font')
+        forward = Button(text=MONTH_TO_STRING[self.current_month + 1], background_color=colors.SCROLL_BUTTON_BG_COLOR,
+                         font_name='freedom_font')
+        current = ColoredLabel(text=MONTH_TO_STRING[self.current_month], bg_color=colors.CURRENT_MONTH_BG_COLOR,
+                               font_name='freedom_font')
 
         back.bind(on_release=self.go_to_previous_month)
         forward.bind(on_release=self.go_to_next_month)
