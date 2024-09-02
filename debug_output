@@ -1,0 +1,40 @@
+garage_app_entry_point	Program started
+garage_app_main_window	Starting app. starting date = 2024-09-01
+side_bar	initializing sidebar
+month_scroll_bar	Creating month scroll bar starting at month:September
+calendar_widget	initializing calendar widget, month=9, year=2024
+calendar_widget	Starting day=Sunday, number of days=30
+day_widget	Day 17 checked
+day_widget	Day 16 checked
+day_widget	Day 9 checked
+day_widget	Day 10 checked
+day_widget	Day 18 checked
+day_widget	Day 11 checked
+day_widget	Day 12 checked
+day_widget	Day 19 checked
+day_widget	Day 26 checked
+day_widget	Day 25 checked
+day_widget	Day 6 checked
+day_widget	Day 13 checked
+day_widget	Day 5 checked
+day_widget	Day 12 checked
+month_scroll_bar	Going forward to monthOctober
+calendar_widget	initializing calendar widget, month=10, year=2024
+calendar_widget	Starting day=Tuesday, number of days=31
+garage_app_main_window	change month to: October, 2024
+month_scroll_bar	Going forward to monthNovember
+calendar_widget	initializing calendar widget, month=11, year=2024
+calendar_widget	Starting day=Friday, number of days=30
+garage_app_main_window	change month to: November, 2024
+month_scroll_bar	Going forward to monthDecember
+calendar_widget	initializing calendar widget, month=12, year=2024
+calendar_widget	Starting day=Sunday, number of days=31
+garage_app_main_window	change month to: December, 2024
+garage_app_main_window	Fully exposing side bar, pos_x=0
+side_bar	Details clicked
+side_bar	Add clicked
+side_bar	Details clicked
+side_bar	Delete clicked
+side_bar	Settings clicked
+garage_app_main_window	Re-hiding side bar due to click away
+garage_app_entry_point	Program closed
