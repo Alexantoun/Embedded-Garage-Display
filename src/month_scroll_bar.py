@@ -40,13 +40,13 @@ class MonthScroll(BoxLayout):
 
     def go_to_previous_month(self, unused):
         self.current_month = (self.current_month - 1) % const.MONTHS_IN_YEAR
-        Log.write_debug(DEBUG_CALLING_CLASS, f'Going back to month{const.MONTH_TO_STRING[self.current_month]}')
+        Log.write_debug(DEBUG_CALLING_CLASS, f'Going back to month: {const.MONTH_TO_STRING[self.current_month]}')
         self.dispatch('on_selected_month_back')
         self.update_text()
 
     def go_to_next_month(self, unused):
         self.current_month = (self.current_month + 1) % const.MONTHS_IN_YEAR
-        Log.write_debug(DEBUG_CALLING_CLASS, f'Going forward to month{const.MONTH_TO_STRING[self.current_month]}')
+        Log.write_debug(DEBUG_CALLING_CLASS, f'Going forward to month: {const.MONTH_TO_STRING[self.current_month]}')
         self.dispatch('on_selected_month_fore')
         self.update_text()
 
