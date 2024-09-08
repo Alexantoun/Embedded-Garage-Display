@@ -26,7 +26,9 @@ class GarageAppMainWindow(FloatLayout):
         log.write_debug(DEBUG_CALLING_CLASS, message=f'Starting app. starting date = {self.selected_date}')
 
         self.calendar_layout = BoxLayout(orientation='vertical', size_hint=(1, 1))
+
         self.sidebar_layout = SideBar(size_hint=(0.125, 1))
+        self.ids['side_bar'] = self.sidebar_layout
         self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
         self.sidebar_active = False
 
@@ -34,11 +36,14 @@ class GarageAppMainWindow(FloatLayout):
         self.add_widget(self.sidebar_layout)
 
         month_scroll_bar = MonthScroll(month, size_hint=(1, .085))
+        self.ids['month_scroll'] = month_scroll_bar
         month_scroll_bar.bind(on_selected_month_fore=self.handle_forward_scroll)
         month_scroll_bar.bind(on_selected_month_back=self.handle_backward_scroll)
 
         self.calendar_layout.add_widget(month_scroll_bar)
+
         self.calendar_widget = CalendarWidget(month=month, year=year)
+        self.ids['calendar_widget'] = self.calendar_widget
         self.calendar_layout.add_widget(self.calendar_widget)
 
         self.touch_start_x = None

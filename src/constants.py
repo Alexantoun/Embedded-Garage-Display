@@ -27,8 +27,7 @@ DAY_TO_STRING = [
     'Sunday'
 ]
 
-# Kivy wants RGB values as float between 0 and 1, however
-# My color picker software uses values from 0 to 255
+# Kivy wants RGB values as float between 0 and 1
 DAY_LABEL_BG_COLOR = (0.80, 0.71, 0.72)  # hex CDB6B8
 SCROLL_BUTTON_BG_COLOR = (0.49, 0.43, 0.43)  # hex 7C6E6E
 CURRENT_MONTH_BG_COLOR = (0.66, 0.59, 0.59)  # hex A99697
