@@ -2,6 +2,7 @@ from kivy.animation import Animation
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 
+from kivy.clock import Clock
 import datetime
 
 import src.constants as const
@@ -10,8 +11,10 @@ from src.lib.calendar_widget import CalendarWidget
 from src.month_scroll_bar import MonthScroll
 from src.side_bar import SideBar
 
-SIDEBAR_INITIAL_POSITION_x = -100
+SIDEBAR_INITIAL_POSITION_x = -150
 SIDEBAR_ACTIVE_POSITION_x = 0
+
+DEBOUNCE_TIMEOUT_s = 0.1  # 100ms
 
 DEBUG_CALLING_CLASS = 'garage_app_main_window'
 
@@ -30,6 +33,7 @@ class GarageAppMainWindow(FloatLayout):
         self.sidebar_layout = SideBar(size_hint=(0.125, 1))
         self.ids['side_bar'] = self.sidebar_layout
         self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
+        print('initial position = ', self.sidebar_layout.x, ' sidebar width = ', self.sidebar_layout.width)
         self.sidebar_active = False
 
         self.add_widget(self.calendar_layout)
@@ -49,50 +53,71 @@ class GarageAppMainWindow(FloatLayout):
         self.touch_start_x = None
         self.moving_bar = False
 
-    def on_touch_down(self, touch):
-        self.touch_start_x = touch.x
-        if self.sidebar_active:
-            self.sidebar_layout.on_touch_down(touch)
-            return True  # Returning true means that the touch event has been completely handled by this widget
-            # Returning false would mean that the touch event wasnt completely handled, and allows propagation of the event to child widgets
-        return super(GarageAppMainWindow, self).on_touch_down(
-            touch)  # This means to let the base class handle what to do with event
+        self.touch_up_debounce: bool = False
+        self.touch_down_debounce: bool = False
 
+####################################################################################
+    def on_touch_down(self, touch):
+        if not self.touch_down_debounce:
+            self.touch_down_debounce = True
+            Clock.schedule_once(lambda dt: self.on_touch_down_debounce_timer(), DEBOUNCE_TIMEOUT_s)
+
+            log.write_debug(DEBUG_CALLING_CLASS, message=f'touch_down')
+            self.touch_start_x = touch.x
+            if self.sidebar_active:
+                self.sidebar_layout.on_touch_down(touch)
+                return True  # Returning true means that the touch event has been completely handled by this widget
+                             # Returning false would mean that the touch event wasnt completely handled, and allows propagation of the event to child widgets
+            return super(GarageAppMainWindow, self).on_touch_down(touch)  # This means to let the base class handle what to do with event
+        else:
+            return True
+
+####################################################################################
     def on_touch_move(self, touch):
         delta_x = touch.x - self.touch_start_x
-        new_x_position = self.sidebar_layout.x + delta_x
-        self.sidebar_layout.x = min(new_x_position, SIDEBAR_ACTIVE_POSITION_x)
-        self.moving_bar = abs(delta_x) > 2
+        self.moving_bar = abs(delta_x) > 5
+        if self.moving_bar:
+            new_x_position = self.sidebar_layout.x + (delta_x/4)
+            self.sidebar_layout.x = min(new_x_position, SIDEBAR_ACTIVE_POSITION_x)
         return True
 
+####################################################################################
     def on_touch_up(self, touch):
-        if self.moving_bar:
-            if self.sidebar_layout.x < -25:  # if sidebar not exposed enough, hide it again
-                log.write_debug(DEBUG_CALLING_CLASS,
-                                message=f'Re-hiding side bar, pos_x={self.sidebar_layout.x}')
-                self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
+        if not self.touch_up_debounce:
+            self.touch_up_debounce = True
+            Clock.schedule_once(lambda dt: self.on_touch_up_debounce_timer(), DEBOUNCE_TIMEOUT_s)
 
-            else:
-                log.write_debug(DEBUG_CALLING_CLASS, message=f'Fully exposing side bar, pos_x={self.sidebar_layout.x}')
-                self.sidebar_layout.x = SIDEBAR_ACTIVE_POSITION_x
-                self.sidebar_active = True
+            log.write_debug(DEBUG_CALLING_CLASS, message=f'touch_up')
+            if self.moving_bar:
+                if self.sidebar_layout.x < -50:  # if sidebar not exposed enough, hide it again
+                    log.write_debug(DEBUG_CALLING_CLASS,
+                                    message=f'Re-hiding side bar, pos_x={self.sidebar_layout.x}')
+                    self.sidebar_layout.x = SIDEBAR_INITIAL_POSITION_x
 
-            self.moving_bar = False
+                else:
+                    log.write_debug(DEBUG_CALLING_CLASS, message=f'Fully exposing side bar, pos_x={self.sidebar_layout.x}')
+                    self.sidebar_layout.x = SIDEBAR_ACTIVE_POSITION_x
+                    self.sidebar_active = True
+
+                self.moving_bar = False
+                return True
+
+            elif self.sidebar_active and not self.sidebar_layout.collide_point(*touch.pos):
+                self.sidebar_active = False
+                # Have the sidebar 'slide' back to its hidden position
+                animation = Animation(x=SIDEBAR_INITIAL_POSITION_x, duration=0.15)
+                animation.bind()
+                animation.start(self.sidebar_layout)
+                log.write_debug(DEBUG_CALLING_CLASS, message='Re-hiding side bar due to click away')
+
+                return True
+
+            elif not self.sidebar_active:
+                return super(GarageAppMainWindow, self).on_touch_up(touch)
+        else:
             return True
 
-        elif self.sidebar_active and not self.sidebar_layout.collide_point(*touch.pos):
-            self.sidebar_active = False
-            # Have the sidebar 'slide' back to its hidden position
-            animation = Animation(x=SIDEBAR_INITIAL_POSITION_x, duration=0.15)
-            animation.bind()
-            animation.start(self.sidebar_layout)
-            log.write_debug(DEBUG_CALLING_CLASS, message='Re-hiding side bar due to click away')
-
-            return True
-
-        elif not self.sidebar_active:
-            return super(GarageAppMainWindow, self).on_touch_up(touch)
-
+####################################################################################
     def handle_forward_scroll(self, unused):
         if self.selected_date.month == 12:
             self.selected_date = datetime.datetime(year=self.selected_date.year + 1, month=1, day=1)
@@ -106,6 +131,7 @@ class GarageAppMainWindow(FloatLayout):
         log.write_debug(DEBUG_CALLING_CLASS,
                         message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 
+####################################################################################
     def handle_backward_scroll(self, unused):
         if self.selected_date.month == 1:
             self.selected_date = datetime.datetime(year=self.selected_date.year - 1, month=12, day=1)
@@ -118,3 +144,11 @@ class GarageAppMainWindow(FloatLayout):
         self.calendar_layout.add_widget(self.calendar_widget)
         log.write_debug(DEBUG_CALLING_CLASS,
                         message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
+
+####################################################################################
+    def on_touch_up_debounce_timer(self):
+        self.touch_up_debounce = False
+
+####################################################################################
+    def on_touch_down_debounce_timer(self):
+        self.touch_down_debounce = False

@@ -1,3 +1,5 @@
+import sys
+from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.graphics import Color, Rectangle
@@ -7,6 +9,7 @@ from src.debug_logger import DebugLogger as log
 
 DEBUG_CALLING_CLASS = 'side_bar'
 
+from kivy.app import App
 
 class SideBar(BoxLayout):
     def __init__(self, **kwargs):
@@ -55,6 +58,9 @@ class SideBar(BoxLayout):
     def settings_button_clicked(unused):
         log.write_debug(DEBUG_CALLING_CLASS, 'Settings clicked')
         print('settings clicked')
+        app = App.get_running_app()
+        app.stop()
+
 
     @staticmethod
     def delete_car_button_clicked(unused):
