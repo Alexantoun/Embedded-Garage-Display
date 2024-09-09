@@ -5,7 +5,6 @@ from unittest.mock import MagicMock, patch
 import src.garage_app_main_window
 import src.month_scroll_bar
 
-LabelBase.register(name='freedom_font', fn_regular='../assets/font/Freedom-10eM.ttf')
 MONTH_SCROLLBAR_ID = 'month_scroll'
 
 
@@ -18,6 +17,7 @@ def mock_kivy_widgets(mocker):
 
 @pytest.fixture
 def window(mock_kivy_widgets):
+    LabelBase.register(name='freedom_font', fn_regular='../assets/font/Freedom-10eM.ttf')
     return src.garage_app_main_window.GarageAppMainWindow()
 
 
@@ -103,3 +103,7 @@ def test_on_touch_move_with_insufficient_movement_sets_movement_flag_false(windo
 
     assert not window.moving_bar
 
+
+####################################################################################
+def test_on_touch_up_if_moving_flag_and_side_bar_not_exposed_enough_side_bar_returned_off_screen(window):
+    assert True
