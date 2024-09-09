@@ -13,6 +13,8 @@ from src.side_bar import SideBar
 
 SIDEBAR_INITIAL_POSITION_x = -150
 SIDEBAR_ACTIVE_POSITION_x = 0
+MINIMUM_TOUCH_MOVEMENT = 5
+MOVEMENT_DELTA_DIVISOR = 25
 
 DEBOUNCE_TIMEOUT_s = 0.1  # 100ms
 
@@ -75,9 +77,9 @@ class GarageAppMainWindow(FloatLayout):
 ####################################################################################
     def on_touch_move(self, touch):
         delta_x = touch.x - self.touch_start_x
-        self.moving_bar = abs(delta_x) > 5
+        self.moving_bar = abs(delta_x) > MINIMUM_TOUCH_MOVEMENT
         if self.moving_bar:
-            new_x_position = self.sidebar_layout.x + (delta_x/4)
+            new_x_position = self.sidebar_layout.x + (delta_x/MOVEMENT_DELTA_DIVISOR)
             self.sidebar_layout.x = min(new_x_position, SIDEBAR_ACTIVE_POSITION_x)
         return True
 
@@ -104,9 +106,7 @@ class GarageAppMainWindow(FloatLayout):
 
             elif self.sidebar_active and not self.sidebar_layout.collide_point(*touch.pos):
                 self.sidebar_active = False
-                # Have the sidebar 'slide' back to its hidden position
                 animation = Animation(x=SIDEBAR_INITIAL_POSITION_x, duration=0.15)
-                animation.bind()
                 animation.start(self.sidebar_layout)
                 log.write_debug(DEBUG_CALLING_CLASS, message='Re-hiding side bar due to click away')
 
