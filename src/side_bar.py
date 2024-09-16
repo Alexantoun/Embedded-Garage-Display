@@ -1,19 +1,17 @@
-import sys
 from kivy.app import App
+from kivy.graphics import Color, Rectangle
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.graphics import Color, Rectangle
 
 import src.constants as const
-from src.debug_logger import DebugLogger as log
+from src.debug_logger import DebugLogger as Log
 
 DEBUG_CALLING_CLASS = 'side_bar'
 
-from kivy.app import App
 
 class SideBar(BoxLayout):
     def __init__(self, **kwargs):
-        log.write_debug(DEBUG_CALLING_CLASS, 'initializing sidebar')
+        Log.write_debug(DEBUG_CALLING_CLASS, 'initializing sidebar')
         super(SideBar, self).__init__(**kwargs)
         self.orientation = 'vertical'
 
@@ -56,7 +54,7 @@ class SideBar(BoxLayout):
 
     @staticmethod
     def settings_button_clicked(unused):
-        log.write_debug(DEBUG_CALLING_CLASS, 'Settings clicked')
+        Log.write_debug(DEBUG_CALLING_CLASS, 'Settings clicked')
         print('settings clicked')
         app = App.get_running_app()
         app.stop()
@@ -64,15 +62,15 @@ class SideBar(BoxLayout):
 
     @staticmethod
     def delete_car_button_clicked(unused):
-        log.write_debug(DEBUG_CALLING_CLASS, 'Delete clicked')
+        Log.write_debug(DEBUG_CALLING_CLASS, 'Delete clicked')
         print('delete car clicked')
 
     @staticmethod
     def car_details_button_clicked(unused):
-        log.write_debug(DEBUG_CALLING_CLASS, 'Details clicked')
+        Log.write_debug(DEBUG_CALLING_CLASS, 'Details clicked')
         print('car details clicked')
 
     @staticmethod
     def add_car_button_clicked(unused):
-        log.write_debug(DEBUG_CALLING_CLASS, 'Add clicked')
+        Log.write_debug(DEBUG_CALLING_CLASS, 'Add clicked')
         print('add car clicked')

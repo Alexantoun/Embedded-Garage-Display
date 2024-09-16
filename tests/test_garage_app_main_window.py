@@ -2,6 +2,7 @@ import datetime
 from kivy.core.text import LabelBase
 import pytest
 from unittest.mock import MagicMock, patch
+
 import src.garage_app_main_window
 import src.month_scroll_bar
 
@@ -75,7 +76,7 @@ def test_on_touch_down_touch_start_position_updated(window):
 
 
 ####################################################################################
-def test_on_touch_move_with_insufficient_movement_sets_movement_flag_true(window):
+def test_on_touch_move_with_sufficient_movement_sets_movement_flag_true(window):
     arbitrary_touch_start = 5
     arbitrary_touch_end = 20
 
@@ -106,4 +107,77 @@ def test_on_touch_move_with_insufficient_movement_sets_movement_flag_false(windo
 
 ####################################################################################
 def test_on_touch_up_if_moving_flag_and_side_bar_not_exposed_enough_side_bar_returned_off_screen(window):
-    assert True
+    arbitrary_touch_start = 5
+    arbitrary_touch_end = 20
+    touch_mock = MagicMock()
+
+    touch_mock.x = arbitrary_touch_start
+    window.on_touch_down(touch_mock)
+
+    touch_mock.x = arbitrary_touch_end
+    window.on_touch_move(touch_mock)
+    assert window.sidebar_layout.x > src.garage_app_main_window.SIDEBAR_INITIAL_POSITION_x
+
+    window.on_touch_up(touch_mock)
+    assert window.sidebar_layout.x == src.garage_app_main_window.SIDEBAR_INITIAL_POSITION_x
+
+
+####################################################################################
+def test_on_touch_up_if_moving_flag_and_side_bar_sufficiently_exposed_then_side_bar_fully_exposed(window):
+    arbitrary_touch_start = 5
+    arbitrary_touch_end = 200
+    touch_mock = MagicMock()
+
+    touch_mock.x = arbitrary_touch_start
+    window.on_touch_down(touch_mock)
+
+    touch_mock.x = arbitrary_touch_end
+    for movement in range(0, 8):
+        touch_mock.x += 50
+        window.on_touch_move(touch_mock)
+
+    assert window.sidebar_layout.x > src.garage_app_main_window.SIDEBAR_INITIAL_POSITION_x
+
+    window.on_touch_up(touch_mock)
+    assert window.sidebar_layout.x == src.garage_app_main_window.SIDEBAR_ACTIVE_POSITION_x
+
+
+####################################################################################
+def test_on_touch_up_and_touch_not_on_side_bar_then_side_bar_hidden(window):
+    window.sidebar_layout.x = src.garage_app_main_window.SIDEBAR_ACTIVE_POSITION_x
+    window.sidebar_active = True
+    window.moving_bar = False
+    non_colliding_touch_pos = (150, 300)
+
+    touch_mock = MagicMock()
+    touch_mock.pos = non_colliding_touch_pos
+
+    with patch('src.garage_app_main_window.Animation') as animation:
+        start_mock = MagicMock()
+        animation.return_value.start = start_mock
+        window.on_touch_up(touch_mock)
+        start_mock.assert_called_once_with(window.sidebar_layout)
+
+
+####################################################################################
+def test_on_touch_down_debounce_prevents_multiple_calls_in_short_period_of_time(window):
+    assert window.touch_up_debounce is False
+
+    touch_mock = MagicMock()
+    touch_mock.pos = (20, 20)
+
+    with patch('src.garage_app_main_window.Clock') as clock_mock:
+        clock_mock.schedule_once = MagicMock()
+        window.on_touch_down(touch_mock)
+        assert window.touch_down_debounce is True
+
+        window.on_touch_down(touch_mock)
+        window.on_touch_down(touch_mock)
+        window.on_touch_down(touch_mock)
+
+        assert 1 == clock_mock.schedule_once.call_count
+
+        window.on_touch_down_debounce_timer()
+        window.on_touch_down(touch_mock)
+
+        assert 2 == clock_mock.schedule_once.call_count
