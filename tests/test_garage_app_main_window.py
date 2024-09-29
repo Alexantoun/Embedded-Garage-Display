@@ -8,7 +8,6 @@ import src.month_scroll_bar
 
 MONTH_SCROLLBAR_ID = 'month_scroll'
 
-
 @pytest.fixture
 def mock_kivy_widgets(mocker):
     mocker.patch('src.garage_app_main_window.FloatLayout.add_widget')
@@ -161,7 +160,7 @@ def test_on_touch_up_and_touch_not_on_side_bar_then_side_bar_hidden(window):
 
 ####################################################################################
 def test_on_touch_down_debounce_prevents_multiple_calls_in_short_period_of_time(window):
-    assert window.touch_up_debounce is False
+    assert window.touch_down_debounce is False
 
     touch_mock = MagicMock()
     touch_mock.pos = (20, 20)
@@ -181,3 +180,55 @@ def test_on_touch_down_debounce_prevents_multiple_calls_in_short_period_of_time(
         window.on_touch_down(touch_mock)
 
         assert 2 == clock_mock.schedule_once.call_count
+
+
+####################################################################################
+def test_on_touch_up_debounce_prevents_multiple_calls_in_short_period_of_time(window):
+    assert window.touch_up_debounce is False
+
+    touch_mock = MagicMock()
+    touch_mock.pos = (20, 20)
+
+    with patch('src.garage_app_main_window.Clock') as clock_mock:
+        clock_mock.schedule_once = MagicMock()
+        window.on_touch_up(touch_mock)
+        assert window.touch_up_debounce is True
+
+        window.on_touch_up(touch_mock)
+        window.on_touch_up(touch_mock)
+
+        assert 1 == clock_mock.schedule_once.call_count
+
+        window.on_touch_up_debounce_timer()
+        window.on_touch_up(touch_mock)
+
+        assert 2 == clock_mock.schedule_once.call_count
+
+
+####################################################################################
+# To confirm that month(x) + 12 is equal to month(x)
+def test_sanity_check_datetime_month_cycles(window):
+    MONTHS_IN_YEAR = 12
+    window.selected_date = datetime.datetime(year=2024, month=6, day=1)
+    for month in range(0, MONTHS_IN_YEAR):
+        window.handle_forward_scroll(None)
+
+    assert window.selected_date == datetime.datetime(year=2025, month=6, day=1)
+
+    for month in range(MONTHS_IN_YEAR, 0, -1):
+        window.handle_backward_scroll(None)
+
+    assert window.selected_date == datetime.datetime(year=2024, month=6, day=1)
+
+
+####################################################################################
+def test_on_month_scroll_then_calendar_widget_recreated_with_correct_data(window):
+    with patch('src.garage_app_main_window.CalendarWidget') as calendar_widget_mock:
+        window.selected_date = datetime.datetime(year=2024, month=6, day=1)
+        window.handle_forward_scroll(None)
+        calendar_widget_mock.assert_called_once_with(7, 2024)
+        calendar_widget_mock.reset_mock()
+
+        window.handle_backward_scroll(None)
+        calendar_widget_mock.assert_called_once_with(6, 2024)
+
