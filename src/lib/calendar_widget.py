@@ -14,7 +14,6 @@ class CalendarWidget(GridLayout):
         Log.write_debug(DEBUG_CALLING_CLASS, f'initializing calendar widget, month={month}, year={year}')
         super(CalendarWidget, self).__init__(**kwargs)
         self.cols = const.DAYS_IN_WEEK
-        colored_label: ColoredLabel
         starting_day, num_days = monthrange(year=year, month=month)
         self.spacing = .5
 

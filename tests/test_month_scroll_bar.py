@@ -57,7 +57,7 @@ def test_on_next_month_scroll_button_and_label_text_updated_accurately(scroll_ba
 
 ####################################################################################
 def test_scrolling_past_december_shows_january_as_current_month(scroll_bar):
-    for month in range(0, 6):
+    for month in range(0, 6):  #scroll to december
         scroll_bar.go_to_next_month(None)
 
     assert scroll_bar.current_label.text == 'December'
@@ -71,7 +71,7 @@ def test_scrolling_past_december_shows_january_as_current_month(scroll_bar):
 
 ####################################################################################
 def test_scrolling_before_january_shows_december_as_current_month(scroll_bar):
-    for month in range(0, 5):
+    for month in range(0, 5):  #scroll to January
         scroll_bar.go_to_previous_month(None)
 
     assert scroll_bar.back_button.text == 'December'
