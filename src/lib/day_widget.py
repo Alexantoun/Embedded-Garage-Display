@@ -15,7 +15,6 @@ COLOR_SELECTION = [
     const.DARKER_DAY_WIDGET_COLOR
 ]
 
-
 class CalendarDay(BoxLayout):
     def __init__(self, day_number: int, **kwargs):
         super(CalendarDay, self).__init__(**kwargs)

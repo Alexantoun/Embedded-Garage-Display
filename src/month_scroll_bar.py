@@ -7,7 +7,6 @@ from src.lib.colored_label_widget import ColoredLabel
 
 DEBUG_CALLING_CLASS = 'month_scroll_bar'
 
-
 class MonthScroll(BoxLayout):
     def __init__(self, current_month: int, **kwargs):
         super(MonthScroll, self).__init__(**kwargs)
