@@ -1,3 +1,4 @@
+from src.popup_windows.add_car_popup import AddCarPage
 from kivy.app import App
 from kivy.graphics import Color, Rectangle
 from kivy.uix.boxlayout import BoxLayout
@@ -7,7 +8,6 @@ import src.constants as const
 from src.debug_logger import DebugLogger as Log
 
 DEBUG_CALLING_CLASS = 'side_bar'
-
 
 class SideBar(BoxLayout):
     def __init__(self, **kwargs):
@@ -37,6 +37,8 @@ class SideBar(BoxLayout):
         self.add_widget(self.delete_car_button)
         self.add_widget(self.settings_button)
 
+        self.popup_window = None
+
     def _update_rect(self, *unused):
         self.rect.pos = self.pos
         self.rect.size = self.size
@@ -59,7 +61,6 @@ class SideBar(BoxLayout):
         app = App.get_running_app()
         app.stop()
 
-
     @staticmethod
     def delete_car_button_clicked(unused):
         Log.write_debug(DEBUG_CALLING_CLASS, 'Delete clicked')
@@ -70,7 +71,9 @@ class SideBar(BoxLayout):
         Log.write_debug(DEBUG_CALLING_CLASS, 'Details clicked')
         print('car details clicked')
 
-    @staticmethod
-    def add_car_button_clicked(unused):
+    def add_car_button_clicked(self, unused):
         Log.write_debug(DEBUG_CALLING_CLASS, 'Add clicked')
+        self.popup_window = AddCarPage()
+        self.popup_window.open()
+
         print('add car clicked')
