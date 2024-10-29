@@ -20,6 +20,6 @@ class ListWidget(ScrollView):
         self.widget_count = 0
 
     def add_list_widget_item(self, new_widget):
+        Log.write_debug(DEBUG_CALLING_CLASS+self.called_from, message=f'Added widget. Widget count = {self.widget_count}')
         self.layout.add_widget(new_widget)
         self.widget_count += 1
-        Log.write_debug(DEBUG_CALLING_CLASS+self.called_from, message=f'Added widget. Widget count = {self.widget_count}')
