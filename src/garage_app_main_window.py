@@ -16,8 +16,6 @@ SIDEBAR_ACTIVE_POSITION_x = 0
 MINIMUM_TOUCH_MOVEMENT = 5
 MOVEMENT_DELTA_DIVISOR = 25
 
-DEBOUNCE_TIMEOUT_s = 0.1  # 100ms
-
 DEBUG_CALLING_CLASS = 'garage_app_main_window'
 
 
@@ -59,7 +57,7 @@ class GarageAppMainWindow(FloatLayout):
     def on_touch_down(self, touch):
         if not self.touch_down_debounce:
             self.touch_down_debounce = True
-            Clock.schedule_once(lambda dt: self.on_touch_down_debounce_timer(), DEBOUNCE_TIMEOUT_s)
+            Clock.schedule_once(lambda dt: self.on_touch_down_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
 
             log.write_debug(DEBUG_CALLING_CLASS, message=f'touch_down')
             self.touch_start_x = touch.x
@@ -87,7 +85,7 @@ class GarageAppMainWindow(FloatLayout):
     def on_touch_up(self, touch):
         if not self.touch_up_debounce:
             self.touch_up_debounce = True
-            Clock.schedule_once(lambda dt: self.on_touch_up_debounce_timer(), DEBOUNCE_TIMEOUT_s)
+            Clock.schedule_once(lambda dt: self.on_touch_up_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
 
             log.write_debug(DEBUG_CALLING_CLASS, message=f'touch_up')
             if self.moving_bar:
