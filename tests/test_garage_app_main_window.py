@@ -17,7 +17,7 @@ def mock_kivy_widgets(mocker):
 
 @pytest.fixture
 def window(mock_kivy_widgets):
-    LabelBase.register(name='freedom_font', fn_regular='../assets/font/Freedom-10eM.ttf')
+    LabelBase.register(name='pricedown_bl', fn_regular='../assets/font/Freedom-10eM.ttf')
     return src.garage_app_main_window.GarageAppMainWindow()
 
 

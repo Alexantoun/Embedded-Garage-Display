@@ -10,6 +10,7 @@ class ListWidget(ScrollView):
         super(ListWidget, self).__init__(**kwargs)
         self.called_from = called_from
         self.orientation = 'vertical'
+        self.bar_width = 15
         Log.write_debug(DEBUG_CALLING_CLASS+called_from, message='Initializing ListWidget')
         layout = BoxLayout(orientation='vertical', size_hint_y=None, spacing=5, padding=LIST_WIDGET_VERTICAL_PADDING)
 

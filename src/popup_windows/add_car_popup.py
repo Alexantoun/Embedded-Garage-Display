@@ -19,7 +19,7 @@ class AddCarPage(Popup):
         self.pos_hint = {'top': 1}
 
         layout = BoxLayout(orientation='vertical')
-        self.list_widget = self.create_list_widget()
+        self.list_widget = AddCarPage.create_list_widget()
         layout.add_widget(self.list_widget)
         layout.add_widget(self.create_button_layout())
 
@@ -31,12 +31,12 @@ class AddCarPage(Popup):
         layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.2))
         layout.padding = [0, 0, 0, 0]
 
-        cancel_button = Button(text='cancel', size_hint_y=1, font_size=24, font_name='freedom_font')
+        cancel_button = Button(text='Cancel', size_hint_y=1, font_size=24, font_name='pricedown_bl')
         cancel_button.background_color = const.SCROLL_BUTTON_BG_COLOR
         cancel_button.bind(on_press=self.on_cancel_pressed)
         layout.add_widget(cancel_button)
 
-        add_button = Button(text='add car', size_hint_y=1, font_size=24, font_name='freedom_font')
+        add_button = Button(text='Add car', size_hint_y=1, font_size=24, font_name='pricedown_bl')
         add_button.background_color = const.SCROLL_BUTTON_BG_COLOR
         add_button.bind(on_press=self.on_add_car_pressed)
         layout.add_widget(add_button)
@@ -46,7 +46,7 @@ class AddCarPage(Popup):
 ####################################################################################
     def setup_title(self):
         self.title = "Enter Car Details"
-        self.title_font = 'freedom_font'
+        self.title_font = 'pricedown_bl'
         self.title_size = 18
         self.title_align = 'center'
 
@@ -73,24 +73,32 @@ class AddCarPage(Popup):
     def create_list_widget() -> ListWidget:
         list_widget = ListWidget(called_from='AddCarPage')
 
-        car_make_field = InputField(hint_text="Make")
+        car_make_field = InputField(hint_text="Make", allow_numerical=False)
         list_widget.add_list_widget_item(car_make_field)
         list_widget.ids['make'] = car_make_field
 
-        car_model_field = InputField(hint_text="Model")
+        car_model_field = InputField(hint_text="Model", allow_numerical=False)
         list_widget.add_list_widget_item(car_model_field)
         list_widget.ids['model'] = car_make_field
 
-        car_date_field = InputField(hint_text="Year")
+        car_date_field = InputField(hint_text="Year", allow_alphabetical=False)
         list_widget.add_list_widget_item(car_date_field)
         list_widget.ids['date'] = car_make_field
 
-        car_recent_oil_change = InputField(hint_text="Mileage at most recent oil change", font_size=18)
+        car_date_field = InputField(hint_text="Mileage", allow_alphabetical=False)
+        list_widget.add_list_widget_item(car_date_field)
+        list_widget.ids['mileage'] = car_make_field
+
+        car_recent_oil_change = InputField(hint_text="Miles @ most recent oil change", allow_alphabetical=False)
         list_widget.add_list_widget_item(car_recent_oil_change)
         list_widget.ids['oil_change'] = car_make_field
 
-        car_oil_change_frequency = InputField(hint_text="Miles of oil change frequency", font_size=18)
+        car_oil_change_frequency = InputField(hint_text="Miles between oil changes", allow_alphabetical=False)
         list_widget.add_list_widget_item(car_oil_change_frequency)
         list_widget.ids['oil_freq'] = car_make_field
+
+        car_nickname_field = InputField(hint_text="Nickname for car")
+        list_widget.add_list_widget_item(car_nickname_field)
+        list_widget.ids['nickname'] = car_nickname_field
 
         return list_widget

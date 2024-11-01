@@ -14,7 +14,7 @@ def mock_kivy(mocker):
 
 @pytest.fixture
 def scroll_bar(mock_kivy):
-    LabelBase.register(name='freedom_font', fn_regular='../assets/font/Freedom-10eM.ttf')
+    LabelBase.register(name='pricedown_bl', fn_regular='../assets/font/Freedom-10eM.ttf')
     return src.month_scroll_bar.MonthScroll(ARBITRARY_TEST_MONTH)
 
 

@@ -25,13 +25,13 @@ class MonthScroll(BoxLayout):
 
     def make_widgets(self):
         back = Button(text=const.MONTH_TO_STRING[self.current_month - 1], background_color=const.SCROLL_BUTTON_BG_COLOR,
-                      font_name='freedom_font')
-        back.font_size = 18
+                      font_name='pricedown_bl')
+        # back.font_size = 18
         forward = Button(text=const.MONTH_TO_STRING[self.current_month + 1], background_color=const.SCROLL_BUTTON_BG_COLOR,
-                         font_name='freedom_font')
+                         font_name='pricedown_bl')
         current = ColoredLabel(text=const.MONTH_TO_STRING[self.current_month], bg_color=const.CURRENT_MONTH_BG_COLOR,
-                               font_name='freedom_font')
-
+                               font_name='pricedown_bl')
+        current.font_size = 24
         back.bind(on_release=self.go_to_previous_month)
         forward.bind(on_release=self.go_to_next_month)
 

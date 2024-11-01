@@ -4,14 +4,14 @@ from kivy.core.text import LabelBase
 from kivy.uix.widget import Widget
 import src.lib.calendar_widget
 
-ARBITRARY_TEST_MONTH = 10
-ARBITRARY_TEST_YEAR = 2024
 # October 2024 starts on Tuesday, and ends on Thursday. It has 31 days
-DAYS_LABEL_STARTING_INDEX: int = -7
+ARBITRARY_TEST_MONTH, ARBITRARY_TEST_YEAR = 10, 2024
+
+DAYS_LABEL_STARTING_INDEX: int = -7  # Widget list is a stack, so need last 7 items
 
 @pytest.fixture
 def calendar_widget():
-    LabelBase.register(name='freedom_font', fn_regular='../assets/font/Freedom-10eM.ttf')
+    LabelBase.register(name='pricedown_bl', fn_regular='../assets/font/Freedom-10eM.ttf')
     calendar_widget = src.lib.calendar_widget.CalendarWidget(ARBITRARY_TEST_MONTH, ARBITRARY_TEST_YEAR)
     return calendar_widget
 

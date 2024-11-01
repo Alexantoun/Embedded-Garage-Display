@@ -5,17 +5,29 @@ from kivy.uix.textinput import TextInput
 
 
 class InputField(TextInput):
-    def __init__(self, hint_text: str, font_size: int = 24, **kwargs):
+    def __init__(self, hint_text: str
+                 , font_size: int = 24
+                 , allow_alphabetical: bool = True
+                 , allow_numerical: bool = True
+                 , **kwargs):
+
         super(InputField, self).__init__(**kwargs)
         self.multiline = False
         self.hint_text = hint_text
         self.size_hint_y = None
-        self.height = 30
+        self.height = 35
         self.font_size = font_size
-        self.font_name = 'freedom_font'
+        self.font_name = 'pricedown_bl'
         self.halign = 'center'
-        self.padding = [0, 3, 0, 3]
         self.background_color = const.LIGHTER_DAY_WIDGET_COLOR
+        self.padding = [0, 3, 0, 3]
+
+        self.allow_alphabetical = allow_alphabetical
+        self.allow_numerical = allow_numerical
 
     def insert_text(self, substring, from_undo=False):
-        return super().insert_text(substring if substring.isalpha() or substring == ' ' else '')
+        if substring.isalpha() and self.allow_alphabetical:
+            return super().insert_text(substring)
+
+        if substring.isdigit() and self.allow_numerical:
+            return super().insert_text(substring)

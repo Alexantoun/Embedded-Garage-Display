@@ -29,7 +29,7 @@ class SideBar(BoxLayout):
         self.delete_car_button = SideBar.create_button('Delete\nCar')
         self.delete_car_button.bind(on_release=self.delete_car_button_clicked)
 
-        self.settings_button = SideBar.create_button('Settings')
+        self.settings_button = SideBar.create_button('Quit')
         self.settings_button.bind(on_release=self.settings_button_clicked)
 
         self.add_widget(self.add_car_button)
@@ -50,8 +50,8 @@ class SideBar(BoxLayout):
                         halign='center',
                         valign='middle',
                         background_color=const.SIDEBAR_BUTTON_COLOR,
-                        font_name='freedom_font')
-        button.font_size = 18
+                        font_name='pricedown_bl')
+        button.font_size = 20
         return button
 
     @staticmethod

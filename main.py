@@ -19,21 +19,20 @@ def is_running_on_rpi() -> str:
     return '1' if (('arm' in info.machine) or ('aarch' in info.machine)) \
         else '0'
 
-
 class GarageAppEntryPoint(App):
     def build(self):
         DebugLogger.write_debug('garage_app_entry_point', 'Program started')
 
         Config.set('graphics', 'width', RBPi_SCREEN_WIDTH_px)
         Config.set('graphics', 'height', RBPi_SCREEN_HEIGHT_px)
-        config_borderless_fullscreen: str
 
+        config_borderless_fullscreen: str
         config_borderless_fullscreen = is_running_on_rpi()
 
         Config.set('graphics', 'fullscreen', config_borderless_fullscreen)
         Config.set('graphics', 'borderless', config_borderless_fullscreen)
 
-        LabelBase.register(name='freedom_font', fn_regular='assets/font/Freedom-10eM.ttf')
+        LabelBase.register(name='pricedown_bl', fn_regular='assets/font/pricedown bl.otf')
 
         Config.write()
         return GarageAppMainWindow()
@@ -42,14 +41,12 @@ class GarageAppEntryPoint(App):
 if __name__ == '__main__':
     try:
         GarageAppEntryPoint().run()
+
         print('TODO:\n\tDay_widget should contain its own day to search for the data table\n\t'              
               'Sidebar widgets can start being made\n\t'
               'Design + implement database for events\n\t'
               'day_widgets should show any events on that day\n\t'
-              'day_widgets on click should show the events details for that day\n\t'
-              'Sidebar sticks out too much when on the embedded display\n\t'
-              'Sidebar hiding itself when using the touch screen and lifting your finger 75% of time\n\t'
-              'Need and exit/close button\n\t')
+              'day_widgets on click should show the events details for that day\n\t')
 
     except Exception as exception:
         DebugLogger.write_debug('garage_app_entry_point', f'Fatal error encountered:\n\t{exception}')

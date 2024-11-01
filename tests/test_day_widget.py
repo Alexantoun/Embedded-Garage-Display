@@ -16,7 +16,7 @@ def mock_kivy_widgets(mocker):
 
 @pytest.fixture
 def day_widget(mock_kivy_widgets):
-    LabelBase.register(name='freedom_font', fn_regular='../assets/font/Freedom-10eM.ttf')
+    LabelBase.register(name='pricedown_bl', fn_regular='../assets/font/Freedom-10eM.ttf')
     return src.lib.day_widget.CalendarDay(ARBITRARY_DAY_NUMBER)
 
 

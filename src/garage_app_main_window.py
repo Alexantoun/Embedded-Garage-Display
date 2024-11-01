@@ -53,7 +53,7 @@ class GarageAppMainWindow(FloatLayout):
         self.touch_up_debounce: bool = False
         self.touch_down_debounce: bool = False
 
-    ####################################################################################
+####################################################################################
     def on_touch_down(self, touch):
         if not self.touch_down_debounce:
             self.touch_down_debounce = True
@@ -72,7 +72,7 @@ class GarageAppMainWindow(FloatLayout):
         else:
             return True
 
-    ####################################################################################
+####################################################################################
     def on_touch_move(self, touch):
         delta_x = touch.x - self.touch_start_x
         self.moving_bar = abs(delta_x) > MINIMUM_TOUCH_MOVEMENT
@@ -81,7 +81,7 @@ class GarageAppMainWindow(FloatLayout):
             self.sidebar_layout.x = min(new_x_position, SIDEBAR_ACTIVE_POSITION_x)
         return True
 
-    ####################################################################################
+####################################################################################
     def on_touch_up(self, touch):
         if not self.touch_up_debounce:
             self.touch_up_debounce = True
@@ -116,7 +116,7 @@ class GarageAppMainWindow(FloatLayout):
         else:
             return True
 
-    ####################################################################################
+####################################################################################
     def handle_forward_scroll(self, unused):
         if self.selected_date.month == 12:
             self.selected_date = datetime.datetime(year=self.selected_date.year + 1, month=1, day=1)
@@ -130,7 +130,7 @@ class GarageAppMainWindow(FloatLayout):
         log.write_debug(DEBUG_CALLING_CLASS,
                         message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 
-    ####################################################################################
+####################################################################################
     def handle_backward_scroll(self, unused):
         if self.selected_date.month == 1:
             self.selected_date = datetime.datetime(year=self.selected_date.year - 1, month=12, day=1)
@@ -144,10 +144,10 @@ class GarageAppMainWindow(FloatLayout):
         log.write_debug(DEBUG_CALLING_CLASS,
                         message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 
-    ####################################################################################
+####################################################################################
     def on_touch_up_debounce_timer(self):
         self.touch_up_debounce = False
 
-    ####################################################################################
+####################################################################################
     def on_touch_down_debounce_timer(self):
         self.touch_down_debounce = False
