@@ -1,0 +1,23 @@
+garage_app_entry_point	Program started
+garage_app_main_window	Starting app. starting date = 2024-11-15
+side_bar	initializing sidebar
+month_scroll_bar	Creating month scroll bar starting at month:November
+calendar_widget	initializing calendar widget, month=11, year=2024
+calendar_widget	Starting day=Friday, number of days=30
+garage_app_main_window	touch_down
+garage_app_main_window	touch_up
+garage_app_main_window	Fully exposing side bar, pos_x=0
+garage_app_main_window	touch_down
+garage_app_main_window	touch_up
+side_bar	Add clicked
+AddCarPage	Creating AddCar popup page
+ListWidgetAddCarPage	Initializing ListWidget
+ListWidgetAddCarPage	Added widget. Widget count = 0
+ListWidgetAddCarPage	Added widget. Widget count = 1
+ListWidgetAddCarPage	Added widget. Widget count = 2
+ListWidgetAddCarPage	Added widget. Widget count = 3
+ListWidgetAddCarPage	Added widget. Widget count = 4
+ListWidgetAddCarPage	Added widget. Widget count = 5
+ListWidgetAddCarPage	Added widget. Widget count = 6
+AddCarPage	ok clicked
+garage_app_entry_point	Program closed
