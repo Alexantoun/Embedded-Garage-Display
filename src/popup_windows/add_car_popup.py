@@ -1,8 +1,10 @@
+import threading
+
 import src.constants as const
+from src.database import DatabaseManager
 from src.debug_logger import DebugLogger as Log
 from src.lib.input_field import InputField
 from src.lib.list_wdget import ListWidget
-
 from kivy.clock import Clock
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
@@ -60,12 +62,14 @@ class AddCarPage(Popup):
     def on_add_car_pressed(self, unused):
         Log.write_debug(DEBUG_CALLING_CLASS, message="ok clicked")
         self.close_touch_debounce = True
+        save_thread = threading.Thread(target=DatabaseManager.write_car_data, args=(self.list_widget,))
+        save_thread.start()
+
         Clock.schedule_once(lambda dt: self.on_touch_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
 
 ####################################################################################
     def on_touch_debounce_timer(self):
         self.close_touch_debounce = False
-        print(self.list_widget.ids['make'].text)
         self.dismiss()
 
 ####################################################################################

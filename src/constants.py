@@ -39,3 +39,5 @@ NON_DAY_WIDGET_COLOR = (0.34, 0.31, 0.31)  # hex 565050
 SIDEBAR_BUTTON_COLOR = (0.25, 0.22, 0.22)  # hex 3f3838
 
 TOUCH_DEBOUNCE_TIMEOUT = 0.1  # seconds
+
+PATH_TO_DATABASE_FILES = '../Database/data.ini'
