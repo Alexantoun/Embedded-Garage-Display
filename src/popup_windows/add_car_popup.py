@@ -49,23 +49,24 @@ class AddCarPage(Popup):
     def setup_title(self):
         self.title = "Enter Car Details"
         self.title_font = 'pricedown_bl'
-        self.title_size = 18
+        self.title_size = 22
         self.title_align = 'center'
 
 ####################################################################################
     def on_cancel_pressed(self, unused):
-        Log.write_debug(DEBUG_CALLING_CLASS, message="cancel clicked")
-        self.close_touch_debounce = True
-        Clock.schedule_once(lambda dt: self.on_touch_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
+        if not self.close_touch_debounce:
+            self.close_touch_debounce = True
+            Clock.schedule_once(lambda dt: self.on_touch_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
+            Log.write_debug(DEBUG_CALLING_CLASS, message="cancel clicked")
 
 ####################################################################################
     def on_add_car_pressed(self, unused):
-        Log.write_debug(DEBUG_CALLING_CLASS, message="ok clicked")
-        self.close_touch_debounce = True
-        save_thread = threading.Thread(target=DatabaseManager.write_car_data, args=(self.list_widget,))
-        save_thread.start()
-
-        Clock.schedule_once(lambda dt: self.on_touch_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
+        if not self.close_touch_debounce:
+            self.close_touch_debounce = True
+            Clock.schedule_once(lambda dt: self.on_touch_debounce_timer(), const.TOUCH_DEBOUNCE_TIMEOUT)
+            Log.write_debug(DEBUG_CALLING_CLASS, message="ok clicked")
+            save_thread = threading.Thread(target=DatabaseManager.add_car_data, args=(self.list_widget,))
+            save_thread.start()
 
 ####################################################################################
     def on_touch_debounce_timer(self):
@@ -81,25 +82,25 @@ class AddCarPage(Popup):
         list_widget.add_list_widget_item(car_make_field)
         list_widget.ids['make'] = car_make_field
 
-        car_model_field = InputField(hint_text="Model", allow_numerical=False)
+        car_model_field = InputField(hint_text="Model")
         list_widget.add_list_widget_item(car_model_field)
-        list_widget.ids['model'] = car_make_field
+        list_widget.ids['model'] = car_model_field
 
         car_date_field = InputField(hint_text="Year", allow_alphabetical=False)
         list_widget.add_list_widget_item(car_date_field)
-        list_widget.ids['date'] = car_make_field
+        list_widget.ids['date'] = car_date_field
 
-        car_date_field = InputField(hint_text="Mileage", allow_alphabetical=False)
-        list_widget.add_list_widget_item(car_date_field)
-        list_widget.ids['mileage'] = car_make_field
+        car_mileage_field = InputField(hint_text="Mileage", allow_alphabetical=False)
+        list_widget.add_list_widget_item(car_mileage_field)
+        list_widget.ids['mileage'] = car_mileage_field
 
         car_recent_oil_change = InputField(hint_text="Miles @ most recent oil change", allow_alphabetical=False)
         list_widget.add_list_widget_item(car_recent_oil_change)
-        list_widget.ids['oil_change'] = car_make_field
+        list_widget.ids['oil_change'] = car_recent_oil_change
 
         car_oil_change_frequency = InputField(hint_text="Miles between oil changes", allow_alphabetical=False)
         list_widget.add_list_widget_item(car_oil_change_frequency)
-        list_widget.ids['oil_freq'] = car_make_field
+        list_widget.ids['oil_freq'] = car_oil_change_frequency
 
         car_nickname_field = InputField(hint_text="Nickname for car")
         list_widget.add_list_widget_item(car_nickname_field)

@@ -1,10 +1,12 @@
 #! /usr/bin/python3
 
 import platform
-
+import threading
 from kivy.config import Config
 from kivy.core.text import LabelBase
 from kivy.app import App
+
+from src.database import DatabaseManager
 from src.garage_app_main_window import GarageAppMainWindow
 from src.debug_logger import DebugLogger
 
@@ -22,6 +24,9 @@ def is_running_on_rpi() -> str:
 class GarageAppEntryPoint(App):
     def build(self):
         DebugLogger.write_debug('garage_app_entry_point', 'Program started')
+
+        load_database_thread = threading.Thread(target=DatabaseManager.read_car_data)
+        load_database_thread.start()
 
         Config.set('graphics', 'width', RBPi_SCREEN_WIDTH_px)
         Config.set('graphics', 'height', RBPi_SCREEN_HEIGHT_px)
@@ -44,7 +49,6 @@ if __name__ == '__main__':
 
         print('TODO:\n\tDay_widget should contain its own day to search for the data table\n\t'              
               'Sidebar widgets can start being made\n\t'
-              'Design + implement database for events\n\t'
               'day_widgets should show any events on that day\n\t'
               'day_widgets on click should show the events details for that day\n\t')
 

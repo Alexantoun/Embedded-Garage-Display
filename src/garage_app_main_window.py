@@ -26,7 +26,6 @@ class GarageAppMainWindow(FloatLayout):
         month = self.selected_date.month
         year = self.selected_date.year
         log.write_debug(DEBUG_CALLING_CLASS, message=f'Starting app. starting date = {self.selected_date}')
-
         self.calendar_layout = BoxLayout(orientation='vertical', size_hint=(1, 1))
 
         self.sidebar_layout = SideBar(size_hint=(0.125, 1))
