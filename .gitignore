@@ -1,3 +1,4 @@
 .idea/
 .idea*
 *data.ini
+*debug_output*
