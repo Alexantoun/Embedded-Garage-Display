@@ -1,14 +1,14 @@
-import threading
-
 import src.constants as const
 from src.database import DatabaseManager
 from src.debug_logger import DebugLogger as Log
 from src.lib.input_field import InputField
 from src.lib.list_wdget import ListWidget
+
 from kivy.clock import Clock
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+import threading
 
 DEBUG_CALLING_CLASS = "AddCarPage"
 

@@ -16,6 +16,7 @@ class MonthScroll(BoxLayout):
 
         self.orientation = 'horizontal'
         self.back_button, self.current_label, self.next_button = self.make_widgets()
+        print('im ok')
         self.add_widget(self.back_button)
         self.add_widget(self.current_label)
         self.add_widget(self.next_button)
@@ -27,8 +28,10 @@ class MonthScroll(BoxLayout):
         back = Button(text=const.MONTH_TO_STRING[self.current_month - 1], background_color=const.SCROLL_BUTTON_BG_COLOR,
                       font_name='pricedown_bl')
         # back.font_size = 18
-        forward = Button(text=const.MONTH_TO_STRING[self.current_month + 1], background_color=const.SCROLL_BUTTON_BG_COLOR,
-                         font_name='pricedown_bl')
+        forward = Button(text=const.MONTH_TO_STRING[(self.current_month + 1) % const.MONTHS_IN_YEAR]
+                         , background_color=const.SCROLL_BUTTON_BG_COLOR
+                         , font_name='pricedown_bl')
+
         current = ColoredLabel(text=const.MONTH_TO_STRING[self.current_month], bg_color=const.CURRENT_MONTH_BG_COLOR,
                                font_name='pricedown_bl')
         current.font_size = 24

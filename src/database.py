@@ -9,7 +9,7 @@ class DatabaseManager:
     car_data = configparser.ConfigParser()
 
     @staticmethod
-    def add_car_data(new_car_data: ListWidget): #This should append new car data to car_data, then write it
+    def add_car_data(new_car_data: ListWidget):  # This should append new car data to car_data, then write it
         section_name = new_car_data.ids['nickname'].text
         DatabaseManager.car_data.add_section(section_name)
 

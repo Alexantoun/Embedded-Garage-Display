@@ -1,7 +1,8 @@
 import pytest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from kivy.core.text import LabelBase
 import src.month_scroll_bar
+import src.constants as const
 
 ARBITRARY_TEST_MONTH = 6  #June
 
@@ -99,3 +100,26 @@ def test_on_forward_button_pushed_selected_month_fore_evoked(scroll_bar):
 
     scroll_bar.next_button.trigger_action(0)
     selected_month_fore_handler.assert_called_once()
+
+####################################################################################
+def test_given_month_december_scroll_bar_created_with_correct_back_and_fore_button_values():
+    #Bug found where running app in december resulted in immediate program crash. Index out of bounds
+    LabelBase.register(name='pricedown_bl', fn_regular='../assets/font/Freedom-10eM.ttf')
+    DECEMBER = 12
+    with patch('src.month_scroll_bar.BoxLayout.add_widget'):
+        scroll_bar = src.month_scroll_bar.MonthScroll(DECEMBER)
+
+        assert scroll_bar.back_button.text is "November"
+        assert scroll_bar.next_button.text is "January"
+        assert scroll_bar.current_label.text is "December"
+
+####################################################################################
+def test_given_month_January_scroll_bar_created_with_correct_back_and_fore_button_values():
+    LabelBase.register(name='pricedown_bl', fn_regular='../assets/font/Freedom-10eM.ttf')
+    JANUARY = 1
+    with patch('src.month_scroll_bar.BoxLayout.add_widget'):
+        scroll_bar = src.month_scroll_bar.MonthScroll(JANUARY)
+
+        assert scroll_bar.back_button.text is "December"
+        assert scroll_bar.next_button.text is "February"
+        assert scroll_bar.current_label.text is "January"

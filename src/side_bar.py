@@ -1,4 +1,6 @@
 from src.popup_windows.add_car_popup import AddCarPage
+from src.popup_windows.car_details_popup import CarDetailsPage
+
 from kivy.app import App
 from kivy.graphics import Color, Rectangle
 from kivy.uix.boxlayout import BoxLayout
@@ -66,14 +68,19 @@ class SideBar(BoxLayout):
         Log.write_debug(DEBUG_CALLING_CLASS, 'Delete clicked')
         print('delete car clicked')
 
-    @staticmethod
-    def car_details_button_clicked(unused):
+    def car_details_button_clicked(self, unused):
         Log.write_debug(DEBUG_CALLING_CLASS, 'Details clicked')
-        print('car details clicked')
+        self.popup_window = CarDetailsPage()
+        self.popup_window.bind(on_dismiss=self.popup_window_closed)
+        self.popup_window.open()
 
     def add_car_button_clicked(self, unused):
         Log.write_debug(DEBUG_CALLING_CLASS, 'Add clicked')
         self.popup_window = AddCarPage()
+        self.popup_window.bind(on_dismiss=self.popup_window_closed)
         self.popup_window.open()
 
-        print('add car clicked')
+    def popup_window_closed(self, unused):
+        Log.write_debug(DEBUG_CALLING_CLASS, 'Popup window closed')
+        print('closed popup')
+        self.popup_window = None
