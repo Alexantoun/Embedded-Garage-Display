@@ -10,7 +10,7 @@ DEBUG_CALLING_CLASS = 'calendar_widget'
 
 
 class CalendarWidget(GridLayout):
-    def __init__(self, month, year, **kwargs):
+    def __init__(self, today=0, month=0, year=0, **kwargs):
         Log.write_debug(DEBUG_CALLING_CLASS, f'initializing calendar widget, month={month}, year={year}')
         super(CalendarWidget, self).__init__(**kwargs)
         self.cols = const.DAYS_IN_WEEK
@@ -31,11 +31,16 @@ class CalendarWidget(GridLayout):
         color_index = 0
         day: int
         for day in range(1, num_days + 1):
-            self.add_widget(CalendarDay(day_number=day))
+            day_widget = CalendarDay(day_number=day)
+            self.add_widget(day_widget)
             color_index = (color_index + 1) % 2
+            if day == today:
+                day_widget.draw_highlight_square()
+                day_widget.selected = True
 
         trailing_day_spaces = (starting_day + num_days) % 7
         if trailing_day_spaces > 0:
             for day in range(trailing_day_spaces, 7):
                 colored_label = ColoredLabel(bg_color=const.NON_DAY_WIDGET_COLOR, text='')
                 self.add_widget(colored_label)
+

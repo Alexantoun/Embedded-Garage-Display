@@ -23,6 +23,7 @@ class GarageAppMainWindow(FloatLayout):
     def __init__(self, **kwargs):
         super(GarageAppMainWindow, self).__init__(**kwargs)
         self.selected_date = datetime.date.today()
+        day = self.selected_date.day
         month = self.selected_date.month
         year = self.selected_date.year
         log.write_debug(DEBUG_CALLING_CLASS, message=f'Starting app. starting date = {self.selected_date}')
@@ -42,7 +43,7 @@ class GarageAppMainWindow(FloatLayout):
 
         self.calendar_layout.add_widget(month_scroll_bar)
 
-        self.calendar_widget = CalendarWidget(month=month, year=year)
+        self.calendar_widget = CalendarWidget(today=day, month=month, year=year)
         self.ids['calendar_widget'] = self.calendar_widget
         self.calendar_layout.add_widget(self.calendar_widget)
 
@@ -120,12 +121,17 @@ class GarageAppMainWindow(FloatLayout):
         if self.selected_date.month == 12:
             self.selected_date = datetime.datetime(year=self.selected_date.year + 1, month=1, day=1)
         else:
-            self.selected_date = datetime.datetime(year=self.selected_date.year, month=self.selected_date.month + 1,
-                                                   day=1)
+            self.selected_date = datetime.datetime(year=self.selected_date.year, month=self.selected_date.month + 1, day=1)
 
         self.calendar_layout.remove_widget(self.calendar_widget)
-        self.calendar_widget = CalendarWidget(self.selected_date.month, self.selected_date.year)
+
+        if self.selected_date.month == self.selected_date.today().month and self.selected_date.year == self.selected_date.today().year:
+            self.calendar_widget = CalendarWidget(today=self.selected_date.today().day, month=self.selected_date.month, year=self.selected_date.year)
+        else:
+            self.calendar_widget = CalendarWidget(month=self.selected_date.month, year=self.selected_date.year)
+
         self.calendar_layout.add_widget(self.calendar_widget)
+
         log.write_debug(DEBUG_CALLING_CLASS,
                         message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 
@@ -134,12 +140,17 @@ class GarageAppMainWindow(FloatLayout):
         if self.selected_date.month == 1:
             self.selected_date = datetime.datetime(year=self.selected_date.year - 1, month=12, day=1)
         else:
-            self.selected_date = datetime.datetime(year=self.selected_date.year, month=self.selected_date.month - 1,
-                                                   day=1)
+            self.selected_date = datetime.datetime(year=self.selected_date.year, month=self.selected_date.month - 1, day=1)
 
         self.calendar_layout.remove_widget(self.calendar_widget)
-        self.calendar_widget = CalendarWidget(self.selected_date.month, self.selected_date.year)
+
+        if self.selected_date.month == self.selected_date.today().month and self.selected_date.year == self.selected_date.today().year:
+            self.calendar_widget = CalendarWidget(today=self.selected_date.today().day, month=self.selected_date.month, year=self.selected_date.year)
+        else:
+            self.calendar_widget = CalendarWidget(month=self.selected_date.month, year=self.selected_date.year)
+
         self.calendar_layout.add_widget(self.calendar_widget)
+
         log.write_debug(DEBUG_CALLING_CLASS,
                         message=f'change month to: {const.MONTH_TO_STRING[self.selected_date.month - 1]}, {self.selected_date.year}')
 

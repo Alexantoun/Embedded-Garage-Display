@@ -52,3 +52,6 @@ def test_on_construction_calendar_widget_contains_one_widget_per_day_in_month():
     assert ((len(calendar_widget.children)
             - (number_of_column_identifiers + dec_preamble_days_count + dec_trailing_day_count))
             == days_in_december_2023)
+
+def test_if_current_date_is_in_the_month_that_widget_is_displaying_then_widget_auto_highlights_the_day():
+    assert False

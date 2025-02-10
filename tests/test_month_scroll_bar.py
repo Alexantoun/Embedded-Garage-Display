@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import MagicMock, patch
 from kivy.core.text import LabelBase
 import src.month_scroll_bar
-import src.constants as const
 
 ARBITRARY_TEST_MONTH = 6  #June
 
